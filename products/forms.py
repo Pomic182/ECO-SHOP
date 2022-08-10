@@ -13,5 +13,6 @@ class Formulario_drink(forms.Form):
 class Formulario_freshfood(forms.Form):
     name = forms.CharField(max_length=50)
     price = forms.FloatField()
+    kilos= forms.FloatField ()
     rottendays= forms.FloatField()
 

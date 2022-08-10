@@ -29,13 +29,28 @@ def create_food(request):
         return render(request, 'food_product.html', context=context)
 
 def create_freshfood(request):
+
+    if request.method == 'POST':
+        form = Formulario_freshfood(request.POST)
+        if form.is_valid():
+            freshfood.objects.create(
+                name = form.cleaned_data['name'],
+                price = form.cleaned_data['price'],
+                kilos= form.cleaned_data ['kilos'],
+                rottendays = form.cleaned_data['rottendays']
+            )
+            return redirect(list_freshfood)
+    elif request.method == 'GET':
+        form = Formulario_freshfood()
+        context = {'forms':form}
+        return render(request, 'freshfood_product.html', context=context)
     
 
-    freshfood_product= freshfood.objects.create(name='manzana', price= 50, kilos= 0.2, rottendays= 10)
-    context = {
-        'freshfood_product': freshfood_product
-    }
-    return render(request, 'freshfood_product.html', context=context)
+#    freshfood_product= freshfood.objects.create(name='manzana', price= 50, kilos= 0.2, rottendays= 10)
+#    context = {
+#        'freshfood_product': freshfood_product
+#    }
+#    return render(request, 'freshfood_product.html', context=context)
 
 def create_drinks(request):
     drinks_product= drinks.objects.create(name='fanta', price= 250, gallons= 0.2)
